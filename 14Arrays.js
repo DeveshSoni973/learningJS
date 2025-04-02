@@ -58,3 +58,5 @@ console.log("FindIndex (> 2):", arr.findIndex(num => num > 2)); // 1
 
 // 16. includes()
 console.log("Includes (3):", arr.includes(3)); // true
+
+//not all of these are mandated to learn js, main part is understanding E7
