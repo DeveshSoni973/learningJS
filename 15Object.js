@@ -87,3 +87,17 @@ console.log(object6); //tho here the object1 is already concatinated, it works a
 console.log(Object.keys(new_user))
 console.log(Object.values(new_user))
 console.log(Object.entries(new_user))
+
+// object destructuring
+
+genshin={
+    bestBoi:"xiao",
+    mostHandsome:"Ayato",
+    mostPowerful:"Neuvillette"
+}
+
+const {bestBoi}=genshin //this is general destructure , now the bestBoi can be accessed outside the object
+console.log(bestBoi)
+
+const {bestBoi:shortestBoi}=genshin //this syntax means get the bestBoi attribute out of object Genshin, and assign it to shortestBoi variable
+console.log(shortestBoi);
