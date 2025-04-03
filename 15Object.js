@@ -81,3 +81,9 @@ console.log(object1) //due to object5, object1 is changed too, (SO DO NOT DO THI
 // best way is spreaing them :))
 object6={...object1, ...object2, ...object3}
 console.log(object6); //tho here the object1 is already concatinated, it works and will but this is a tutorial error as I would have to reinitialize object1 and me lazy
+
+
+
+console.log(Object.keys(new_user))
+console.log(Object.values(new_user))
+console.log(Object.entries(new_user))
