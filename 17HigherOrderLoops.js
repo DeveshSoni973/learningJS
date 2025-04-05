@@ -244,3 +244,39 @@ const rick_books = bookshop
 console.log(rick_books);
 //No, you don’t need return in filter if you're using arrow function shorthand — same rule as map()! 
 // but if u use curly in filter u gotta use return
+
+
+
+//reduce in array
+
+
+const array1=[1,2,3,4]
+
+const initialValue=0
+const sumWithInitial=array1.reduce(
+  (accumulator, currentValue)=>(accumulator+currentValue), initialValue
+)
+
+console.log(sumWithInitial)
+//The initialValue is not part of the function body — it’s the second argument passed into .reduce() itself.
+
+// one can even write it this way 
+sumWithInitial2=array1.reduce(function(acc, curr){
+  return acc+curr
+}, 0) //directly passed initial value as 0
+console.log(sumWithInitial2)
+//as one can see the initial value is rather an argument of the reduce function 
+
+
+const shoppingCart = [
+  { name: "Apple", price: 30, quantity: 2 },
+  { name: "Banana", price: 10, quantity: 5 },
+  { name: "Milk", price: 50, quantity: 1 },
+];
+
+
+ const totalCost = shoppingCart.reduce((acc, item) => {
+  return acc + item.price * item.quantity;
+}, 0);
+
+console.log(totalCost); // 30*2 + 10*5 + 50*1 = 60 + 50 + 50 = 160
