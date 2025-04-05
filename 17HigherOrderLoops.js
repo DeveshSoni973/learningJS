@@ -136,10 +136,111 @@ hyphonCoding=coding.forEach((item)=>{
     return `${item.name}-${item.filetype}`
 })
 
-console.log(hyphonCoding); //this will not work because forEach never returns values
+// console.log(hyphonCoding); //this will not work because forEach never returns values
 
 
 
 const nums=[1,2,3,4,5,6,7]
 
 console.log(nums.filter((num)=> num>4))
+
+
+const bookshop = [
+    // J.K. Rowling
+    {
+      bookname: "Harry Potter",
+      author: "J.K. Rowling",
+    },
+    {
+      bookname: "The Casual Vacancy",
+      author: "J.K. Rowling",
+    },
+    {
+      bookname: "The Cuckoo's Calling",
+      author: "Robert Galbraith", // Pseudonym of J.K. Rowling
+    },
+  
+    // Rick Riordan
+    {
+      bookname: "Percy Jackson and the Olympians",
+      author: "Rick Riordan",
+    },
+    {
+      bookname: "The Heroes of Olympus",
+      author: "Rick Riordan",
+    },
+    {
+      bookname: "The Kane Chronicles",
+      author: "Rick Riordan",
+    },
+    {
+      bookname: "Magnus Chase and the Gods of Asgard",
+      author: "Rick Riordan",
+    },
+    {
+      bookname: "The Trials of Apollo",
+      author: "Rick Riordan",
+    },
+  
+    // Suzanne Collins
+    {
+      bookname: "The Hunger Games",
+      author: "Suzanne Collins",
+    },
+    {
+      bookname: "Catching Fire",
+      author: "Suzanne Collins",
+    },
+    {
+      bookname: "Mockingjay",
+      author: "Suzanne Collins",
+    },
+  
+    // Veronica Roth
+    {
+      bookname: "Divergent",
+      author: "Veronica Roth",
+    },
+    {
+      bookname: "Insurgent",
+      author: "Veronica Roth",
+    },
+    {
+      bookname: "Allegiant",
+      author: "Veronica Roth",
+    },
+  
+    // C.S. Lewis
+    {
+      bookname: "The Lion, the Witch and the Wardrobe",
+      author: "C.S. Lewis",
+    },
+    {
+      bookname: "Prince Caspian",
+      author: "C.S. Lewis",
+    },
+    {
+      bookname: "The Voyage of the Dawn Treader",
+      author: "C.S. Lewis",
+    },
+  ];
+  
+
+const rick_books_metadata=bookshop.filter((book)=>(book.author=='Rick Riordan'))
+console.log(rick_books_metadata);
+
+
+// .map() transforms each item — here, we extract just book names
+const allBookNames = bookshop.map((book) => book.bookname);
+console.log(allBookNames);
+
+
+// First filter Rick Riordan books, then extract just their names
+//this means I am combining both, and is called chaining
+const rick_books = bookshop
+  .filter((book) => book.author === "Rick Riordan")
+  .map((book) => book.bookname); //i did not use curly braces so i did not have to write return (in map) if i had used {} i would have to use return
+
+console.log(rick_books);
+//No, you don’t need return in filter if you're using arrow function shorthand — same rule as map()! 
+// but if u use curly in filter u gotta use return
