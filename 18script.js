@@ -1,3 +1,10 @@
+//commenting the whole codebase for this file. NodeJS cannot simulate web browser, as an outcome DOCUMENT remains undefined. Use Liveserver and manually test all code lines in browser console.
+
+//when we use the code in browser, need the code to be commented as a whole else it will run on it's own and we will see only final codefile with the changes.
+
+/*
+
+
 // === Selecting Elements by ID ===
 const title = document.getElementById("title");
 console.log(title);
@@ -60,3 +67,6 @@ allH2s.forEach(h2 => {
 });
 
 console.log(allH2s[0].innerText);
+
+
+*/
