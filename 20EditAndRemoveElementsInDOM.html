@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final DOM Notes - Chai Aur Code</title>
+    <style>
+        body {
+            background-color: #212121;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .languages {
+            list-style-type: none;
+            padding: 0;
+        }
+        .languages li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Final DOM Notes - Chai Aur Code</h1>
+    <p>Mastering DOM manipulation: Adding, Editing, and Removing Elements.</p>
+
+    <!-- Unordered List for Languages -->
+    <ul class="languages">
+        <li>JavaScript</li>
+    </ul>
+
+    <script>
+        // Function to Add Language (Basic Approach)
+        function addLanguage(langName) {
+            const li = document.createElement('li');
+            li.innerHTML = langName; // Basic way to add content
+            document.querySelector('.languages').appendChild(li);
+        }
+
+        // Adding Languages with Basic Approach
+        addLanguage('Python');
+        addLanguage('TypeScript');
+
+        // Optimized Function to Add Language
+        function addOptimizedLanguage(langName) {
+            const li = document.createElement('li');
+            li.appendChild(document.createTextNode(langName)); // Optimized: Avoids innerHTML overhead
+            document.querySelector('.languages').appendChild(li);
+        }
+
+        // Adding Language with Optimized Approach
+        addOptimizedLanguage('GoLang');
+
+        // Editing an Element (Approach 1: innerHTML)
+        const secondLang = document.querySelector('.languages li:nth-child(2)');
+        console.log('Second Language Before Edit:', secondLang);
+        secondLang.innerHTML = 'Mojo'; // Replaces Python with Mojo
+
+        // Editing an Element (Approach 2: Replace with New Element)
+        const newLi = document.createElement('li');
+        newLi.textContent = 'Mojo'; // Using textContent instead of innerHTML
+        secondLang.replaceWith(newLi); // Replaces the existing element
+
+        // Editing First Element (Approach 3: outerHTML)
+        const firstLang = document.querySelector('.languages li:first-child');
+        firstLang.outerHTML = '<li>TypeScript</li>'; // Replaces JavaScript with TypeScript
+
+        // Removing an Element
+        const lastLang = document.querySelector('.languages li:last-child');
+        console.log('Last Language Before Removal:', lastLang);
+        lastLang.remove(); // Removes GoLang
+
+        // Key Takeaways from the Video
+        console.log(`
+            Key Takeaways:
+            1. Adding Elements:
+               - Basic: createElement + innerHTML + appendChild
+               - Optimized: createElement + createTextNode + appendChild
+            2. Editing Elements:
+               - innerHTML: Simple but traverses DOM
+               - replaceWith: Replaces entire element (optimized if reference exists)
+               - outerHTML: Replaces entire element markup
+            3. Removing Elements:
+               - Use .remove() on a selected element (simplest method)
+            4. Optimization:
+               - Avoid unnecessary DOM traversals (e.g., use references when possible)
+               - innerHTML is less efficient than textContent or createTextNode
+            5. Next Steps: Move to projects with confidence!
+        `);
+    </script>
+</body>
+</html>
