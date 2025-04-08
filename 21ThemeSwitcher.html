@@ -98,6 +98,7 @@
     document.getElementById("yellow").onclick = () => switchTheme("yellow");
     */
 
+    /*
     for (let theme in themes) {
       const button = document.getElementById(theme);
       if (button) {
@@ -107,5 +108,14 @@
         });
       }
     }
+    */
+    const buttons = document.querySelectorAll(".themes button");
+    buttons.forEach((btn) => {
+    const theme = btn.id; // grab the id (like 'white', 'blue', etc.)
+    btn.addEventListener("click", () => {
+      document.body.style.backgroundColor = themes[theme].background;
+      document.body.style.color = themes[theme].text;
+    });
+  });
   </script>
 </html>
