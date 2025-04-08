@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThemeSwitcher</title>
+  </head>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    main {
+      display: grid;
+      place-items: center;
+      height: 100vh;
+    }
+
+    .themes {
+      display: flex;
+      gap: 10px;
+      margin: 20px;
+    }
+
+    .themes button {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #white {
+      background-color: white;
+      border: 1px solid #ccc;
+    }
+    #blue {
+      background-color: #3498db;
+    }
+    #green {
+      background-color: #2ecc71;
+    }
+    #yellow {
+      background-color: #f1c40f;
+    }
+  </style>
+
+  <body>
+    <main>
+      <h1>Color Theme Switcher</h1>
+      <div class="themes">
+        <button id="white"></button>
+        <button id="blue"></button>
+        <button id="green"></button>
+        <button id="yellow"></button>
+      </div>
+      <h2>try clicking any of the color above to switch themes</h2>
+    </main>
+  </body>
+
+  <script>
+    // write js here
+    const themes = {
+      white: {
+        background: "white",
+        text: "black",
+      },
+      blue: {
+        background: "blue",
+        text: "white",
+      },
+      green: {
+        background: "green",
+        text: "white",
+      },
+      yellow: {
+        background: "yellow",
+        text: "black",
+      },
+    };
+    //need to map it to all the buttons OwO
+    /*
+
+    //this is simpler exectuion
+
+
+    function switchTheme(theme) {
+      document.body.style.backgroundColor = themes[theme].background;
+      document.body.style.color = themes[theme].text;
+    }
+
+    document.getElementById("white").onclick = () => switchTheme("white");
+    document.getElementById("blue").onclick = () => switchTheme("blue");
+    document.getElementById("green").onclick = () => switchTheme("green");
+    document.getElementById("yellow").onclick = () => switchTheme("yellow");
+    */
+
+    for (let theme in themes) {
+      const button = document.getElementById(theme);
+      if (button) {
+        button.addEventListener("click", () => {
+          document.body.style.backgroundColor = themes[theme].background;
+          document.body.style.color = themes[theme].text;
+        });
+      }
+    }
+  </script>
+</html>
