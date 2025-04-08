@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Notes - Chai Aur Code</title>
+    <style>
+        body {
+            background-color: #212121;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .parent {
+            padding: 10px;
+        }
+        .day {
+            margin: 5px;
+        }
+        #dynamic-div {
+            padding: 12px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM Notes - Chai Aur Code</h1>
+    <p>Learning the Document Object Model (DOM) with practical examples.</p>
+
+    <!-- Parent-Child Example -->
+    <div class="parent">
+        <div class="day">Monday</div>
+        <div class="day">Tuesday</div>
+        <div class="day">Wednesday</div>
+        <div class="day">Thursday</div>
+    </div>
+
+    <!-- Placeholder for dynamically created element -->
+    <div id="dynamic-div"></div>
+
+    <script>
+        // Selecting and Exploring the DOM
+        const parent = document.querySelector('.parent');
+        console.log('Parent Element:', parent);
+
+        // Accessing Children
+        const children = parent.children;
+        console.log('Children (HTML Collection):', children);
+        console.log('Number of Children:', children.length);
+
+        // Accessing First Child
+        const firstChild = children[0];
+        console.log('First Child:', firstChild);
+        console.log('First Child Inner HTML:', firstChild.innerHTML);
+
+        // Looping Through Children
+        for (let i = 0; i < children.length; i++) {
+            console.log(`Child ${i + 1}:`, children[i].innerHTML);
+        }
+
+        // Styling First Child
+        firstChild.style.color = 'orange';
+
+        // First Element Child Property
+        const firstElementChild = parent.firstElementChild;
+        console.log('First Element Child:', firstElementChild);
+
+        // Last Element Child Property
+        const lastElementChild = parent.lastElementChild;
+        console.log('Last Element Child:', lastElementChild);
+
+        // Child to Parent Navigation
+        const dayOne = document.querySelector('.day');
+        const parentFromChild = dayOne.parentElement;
+        console.log('Parent from Child:', parentFromChild);
+
+        // Next Sibling
+        const nextSibling = dayOne.nextElementSibling;
+        console.log('Next Sibling:', nextSibling);
+
+        // Exploring Child Nodes (includes text nodes, comments, etc.)
+        console.log('Child Nodes:', parent.childNodes);
+        console.log('Total Child Nodes (including text nodes):', parent.childNodes.length);
+
+        // Creating Elements Programmatically
+        const newDiv = document.createElement('div');
+        newDiv.className = 'main';
+        newDiv.id = Math.round(Math.random() * 10) + 1; // Random ID between 1 and 11
+        newDiv.setAttribute('title', 'Generated Title');
+        newDiv.style.backgroundColor = 'green';
+        newDiv.style.padding = '12px';
+
+        // Adding Text (Two Approaches)
+        // Approach 1: Using innerHTML (overwrites existing content)
+        // newDiv.innerHTML = 'Chai Aur Code';
+
+        // Approach 2: Creating a Text Node (more optimized, no overwrite)
+        const textNode = document.createTextNode('Chai Aur Code');
+        newDiv.appendChild(textNode);
+
+        // Attaching to the DOM
+        document.body.appendChild(newDiv);
+
+        // Notes from the Video
+        console.log(`
+            Key Takeaways:
+            1. DOM is a tree structure representing the HTML document.
+            2. Use querySelector to select elements (returns first match).
+            3. 'children' returns an HTMLCollection of child elements.
+            4. 'childNodes' includes all nodes (text, comments, etc.).
+            5. Create elements with createElement and attach with appendChild.
+            6. Optimize by avoiding unnecessary DOM traversals (e.g., parentElement vs querySelector).
+            7. Understand relationships: parent, child, sibling.
+        `);
+    </script>
+</body>
+</html>
