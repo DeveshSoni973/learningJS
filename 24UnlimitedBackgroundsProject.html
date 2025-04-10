@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlimited Backgrounds</title>
+  </head>
+  <body>
+    <h1>Unlimited Backgrounds</h1>
+    <p>Click the button to change the background color of the page.</p>
+    <button id="changeBackground">Change Background</button>
+    <script>
+      const allColors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#8E44AD"];
+      let currentColor = window.getComputedStyle(document.body).backgroundColor; // Initialize with the initial background color
+
+      bgChanger = () => {
+        // Get the current background color using window.getComputedStyle for reliable results
+        currentColor = window.getComputedStyle(document.body).backgroundColor;
+
+        // Remove the current color from the array (if it exists)
+        let availableColors = allColors.filter(
+          (color) => color !== currentColor
+        );
+
+        // Select a random color from the remaining colors
+        const randomColor =
+          availableColors[Math.floor(Math.random() * availableColors.length)];
+
+        // Set the new background color
+        document.body.style.backgroundColor = randomColor;
+      };
+
+      // Get the button element
+      const button = document.getElementById("changeBackground");
+      let intervalId = null;
+
+      // Set up the click event listener
+      button.addEventListener("click", () => {
+        if (intervalId === null) {
+          // Start the background changing process
+          intervalId = setInterval(bgChanger, 1000);
+        } else {
+          // Stop the background changing process
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      });
+    </script>
+  </body>
+</html>

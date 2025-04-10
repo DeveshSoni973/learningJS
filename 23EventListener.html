@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events Demo</title>
+    <style>
+        /* Embedded CSS for basic styling */
+        body {
+            background-color: #414141;
+            color: aliceblue;
+            font-family: sans-serif;
+        }
+        /* Make images display vertically */
+        ul#images li {
+            margin-bottom: 10px; /* Add some space between images */
+            list-style: none; /* Remove default bullet points */
+        }
+        /* Style the Google link to be visible */
+        a {
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Amazing Images (Click an image to remove it)</h2>
+    <div>
+        <ul id="images">
+            <li><img width="200px" id="photoshop" src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="photoshop"></li>
+            <li><img width="200px" id="japan" src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="japan"></li>
+            <li><img width="200px" id="river" src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="river"></li>
+            <li><img width="200px" id="owl" src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="owl"></li>
+            <li><img width="200px" id="prayer" src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="prayer"></li>
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+   </div>
+
+<script>
+    // --------------------------------------------------
+    // --- Recommended Approach: addEventListener ---
+    // --------------------------------------------------
+
+    // --- Example 1: Removing clicked image ---
+    // Select the parent UL element which contains all list items and images
+    const imagesUL = document.querySelector('#images');
+
+    imagesUL.addEventListener('click', function(e) {
+        console.log("Event triggered on UL (Bubbling/Capturing depends on 3rd arg)");
+
+        // Check if the clicked element is actually an IMG tag
+        // Using tagName is common for this check. It returns the tag name in uppercase.
+        console.log(`Clicked Element Tag: ${e.target.tagName}`);
+
+        if (e.target.tagName === 'IMG') {
+            console.log(`Clicked Image ID: ${e.target.id}`); // Log the ID of the clicked image
+
+            // To remove the image, we actually need to remove its parent list item (<li>)
+            let removeTargetLi = e.target.parentNode; // Get the parent <li> of the clicked <img>
+            console.log("Target parent node (LI) found:", removeTargetLi);
+
+            // Method 1: Directly remove the target's parent node (the <li>)
+            removeTargetLi.remove();
+            console.log("Parent LI removed using .remove()");
+
+            // Method 2 (Alternative): Remove child from its own parent
+            // removeTargetLi.parentNode.removeChild(removeTargetLi);
+            // console.log("Parent LI removed using removeChild()");
+
+        } else {
+             console.log("Clicked on something else inside the UL (not an image)");
+        }
+
+    }, false); // false (default) uses Event Bubbling. true uses Event Capturing.
+
+
+    // --- Example 2: Event Propagation & Stop Propagation ---
+    // Uncomment the code below to see propagation in action
+
+    /*
+    const owlImage = document.querySelector('#owl');
+
+    // Listener specifically for the Owl image (Bubbling Phase)
+    owlImage.addEventListener('click', function(e) {
+        console.log("Owl Clicked!");
+        e.stopPropagation(); // <--- Add this line to STOP the event from bubbling up to the UL
+        console.log("Propagation stopped at Owl!");
+    }, false);
+
+    // Listener for the UL (Bubbling Phase) - This won't fire if stopPropagation is called on Owl
+    imagesUL.addEventListener('click', function(e) {
+        console.log("Clicked inside the UL (Bubbling)");
+    }, false);
+
+    // Listener for the UL (Capturing Phase) - This WILL fire first if enabled
+    imagesUL.addEventListener('click', function(e) {
+        console.log("Clicked inside the UL (Capturing)");
+    }, true); // Set to true for capturing
+    */
+
+
+    // --- Example 3: Preventing Default Action ---
+    const googleLink = document.querySelector('#google');
+
+    googleLink.addEventListener('click', function(e){
+        console.log("Google link clicked");
+        e.preventDefault(); // Prevents the browser from navigating to google.com
+        e.stopPropagation(); // Also stop propagation just to be explicit (good practice here)
+        console.log("Google link default action (navigation) prevented & propagation stopped.");
+    }, false);
+
+
+    // --------------------------------------------------
+    // --- Less Recommended Approaches (For Reference) ---
+    // --------------------------------------------------
+
+    // --- Approach: element.onclick ---
+    /*
+    document.getElementById('owl').onclick = function(){
+        alert('Owl Clicked (using .onclick)');
+    }
+    // Problem: Overwrites previous listeners, less powerful than addEventListener
+    */
+
+    // --- Approach: attachEvent (Old IE) ---
+    /*
+    // document.getElementById('owl').attachEvent('onclick', function(){
+    //     alert('Owl Clicked (using attachEvent - old IE)');
+    // })
+    // Problem: Legacy, only worked in old Internet Explorer versions. Not standard.
+    */
+
+</script>
+
+</body>
+</html>
