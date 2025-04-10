@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events Tutorial Summary (Single File)</title>
+    <style>
+        /* style.css */
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #eee;
+            background-color: #f9f9f9;
+        }
+
+        code {
+            background-color: #e4e4e4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        #mouseTracker {
+            padding: 20px;
+            background-color: lightblue;
+            margin-top: 10px;
+        }
+
+        #outerDiv {
+            padding: 30px;
+            background-color: lightcoral;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        #innerDiv {
+            padding: 20px;
+            background-color: lightgoldenrodyellow;
+            cursor: pointer;
+        }
+
+        #imageList li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        #imageList img {
+            margin-right: 10px;
+            vertical-align: middle; /* Align image nicely with text */
+        }
+
+        p[id$="Output"], #mouseCoords, #linkOutput { /* Style output paragraphs */
+            margin-top: 10px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>JavaScript Events Explained</h1>
+    <p>Based on the YouTube tutorial summary.</p>
+
+    <section id="intro">
+        <h2>Introduction [00:00:00]</h2>
+        <p>JavaScript events are crucial for interactive web applications. They are triggered by user actions (clicks, key presses) or browser actions.</p>
+    </section>
+
+    <section id="handling">
+        <h2>Handling Events [00:06:18 - 00:09:28]</h2>
+        <p>While inline handlers (`onclick`) exist, <code>addEventListener</code> is the preferred method.</p>
+        <button id="myButton">Click Me!</button>
+        <p id="buttonOutput"></p>
+    </section>
+
+    <section id="eventObject">
+        <h2>The Event Object [00:12:43]</h2>
+        <p>When an event occurs, an 'event' object is created with details like:</p>
+        <ul>
+            <li><code>type</code>: The type of event (e.g., 'click').</li>
+            <li><code>timeStamp</code>: When the event happened.</li>
+            <li><code>target</code>: The element that triggered the event.</li>
+            <li><code>clientX/Y</code>: Mouse coordinates relative to the window.</li>
+        </ul>
+        <div id="mouseTracker">
+            <p>Move mouse here:</p>
+            <p id="mouseCoords">X: 0, Y: 0</p>
+        </div>
+    </section>
+
+    <section id="propagation">
+        <h2>Event Propagation (Bubbling & Capturing) [00:18:12]</h2>
+        <p>Events travel up (bubbling - default) or down (capturing) the DOM tree.</p>
+        <div id="outerDiv">Outer Div (Click here)
+            <div id="innerDiv">Inner Div (Click here)</div>
+        </div>
+        <p id="propagationOutput"></p>
+        <button id="stopPropagationBtn">Click Me (Stops Propagation)</button>
+        <p id="stopPropagationOutput"></p>
+    </section>
+
+    <section id="prevent">
+        <h2>preventDefault() [00:23:56]</h2>
+        <p>Stops the default action of an element.</p>
+        <a id="myLink" href="https://www.google.com" target="_blank">Google Link (Click prevented)</a>
+        <p id="linkOutput"></p>
+    </section>
+
+     <section id="example">
+         <h2>Project Example: Removing Items [00:27:42]</h2>
+         <p>Using <code>event.target</code> and <code>parentNode</code> to manipulate elements based on clicks.</p>
+         <ul id="imageList">
+             <li><img src="placeholder.png" alt="Image 1 - Click to remove" width="50"> Item 1</li>
+             <li><img src="placeholder.png" alt="Image 2 - Click to remove" width="50"> Item 2</li>
+             <li><img src="placeholder.png" alt="Image 3 - Click to remove" width="50"> Item 3</li>
+         </ul>
+         <p><i>(Note: This requires placeholder images or actual image URLs to work)</i></p>
+    </section>
+
+    <script>
+        // script.js
+
+        // --- Handling Events ---
+        const myButton = document.getElementById('myButton');
+        const buttonOutput = document.getElementById('buttonOutput');
+
+        myButton.addEventListener('click', function(event) {
+            // 'event' is the Event Object
+            console.log('Button clicked!');
+            console.log('Event details:', event);
+            buttonOutput.textContent = `Button clicked! Type: ${event.type}, Target: ${event.target.tagName}`;
+        });
+
+        // --- Event Object ---
+        const mouseTracker = document.getElementById('mouseTracker');
+        const mouseCoords = document.getElementById('mouseCoords');
+
+        mouseTracker.addEventListener('mousemove', function(event) {
+            mouseCoords.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
+        });
+
+        // --- Event Propagation ---
+        const outerDiv = document.getElementById('outerDiv');
+        const innerDiv = document.getElementById('innerDiv');
+        const propagationOutput = document.getElementById('propagationOutput');
+
+        outerDiv.addEventListener('click', function(event) {
+            propagationOutput.textContent += ' Outer div clicked (Bubbling).';
+            console.log('Outer div clicked (Bubbling)');
+        }, false); // false or omitted = bubbling phase
+
+        innerDiv.addEventListener('click', function(event) {
+            propagationOutput.textContent += ' Inner div clicked (Bubbling).';
+             console.log('Inner div clicked (Bubbling)');
+            // To demonstrate capturing vs bubbling, you'd need another listener on outerDiv with 'true'
+        }, false);
+
+        // --- stopPropagation ---
+        const stopButton = document.getElementById('stopPropagationBtn');
+        const stopOutput = document.getElementById('stopPropagationOutput');
+
+        // Add a listener to the body to see if the click reaches it
+        document.body.addEventListener('click', function(event) {
+            // Only log if the click didn't originate from the stopButton itself
+             if (event.target !== stopButton && !stopButton.contains(event.target)) {
+                 console.log('Body clicked (from other elements)');
+             }
+        });
+
+        stopButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click from bubbling up to the body
+            stopOutput.textContent = 'Button clicked, propagation stopped! Check console.';
+            console.log('Stop propagation button clicked - event stopped here.');
+        });
+
+
+        // --- preventDefault ---
+        const myLink = document.getElementById('myLink');
+        const linkOutput = document.getElementById('linkOutput');
+
+        myLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Stop the link from navigating
+            linkOutput.textContent = 'Link click prevented! Navigation stopped.';
+            console.log('Link click prevented.');
+        });
+
+        // --- Project Example: Removing Items ---
+        const imageList = document.getElementById('imageList');
+
+        imageList.addEventListener('click', function(event) {
+            // Check if the clicked element is an IMG tag [00:33:54]
+            if (event.target.tagName === 'IMG') {
+                console.log('Image clicked:', event.target.alt);
+                // Get the parent LI element and remove it [00:29:46]
+                const listItem = event.target.parentNode;
+                if(listItem && listItem.parentNode === imageList) { // Ensure it's a direct child LI
+                     imageList.removeChild(listItem);
+                     console.log('Removed item:', listItem.textContent.trim());
+                }
+            } else {
+                 console.log('Clicked on LI or UL, not image.');
+            }
+        });
+
+        // --- Clear outputs on load ---
+        function clearOutputs() {
+             buttonOutput.textContent = '';
+             propagationOutput.textContent = '';
+             stopOutput.textContent = '';
+             linkOutput.textContent = '';
+        }
+
+        window.onload = clearOutputs; // Clear outputs when the page loads
+    </script>
+
+</body>
+</html>
