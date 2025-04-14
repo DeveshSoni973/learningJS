@@ -22,13 +22,32 @@
           In JavaScript, when a method is used as an event listener (e.g., this.handleClick), 
           the this keyword inside the method could refer to the event target (the button element) 
           instead of the class instance, due to how event handlers work.
-          
+
           To ensure this inside handleClick refers to the React instance 
           (so we can access this.server), the method is bound to the instance using .bind(this). 
           This creates a new function where this is always the React instance.
 
+
+
+
+          🧩 Why is .bind(this) necessary?
+When the button is clicked, the browser calls the handleClick function on the button, not on your class instance. So:
+
+this would point to the button, not to the React class object.
+
+That means this.server would be undefined or cause an error.
+
+👉 To fix that, you use .bind(this) to lock this to the React object.
+
+So now:
+
+this always refers to your React instance.
+
+You can safely use this.server inside handleClick.
           */
-      }
+      
+      
+        }
       handleClick() {
         console.log("button clicked");
         console.log(this.server);
